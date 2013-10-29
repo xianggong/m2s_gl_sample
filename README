@@ -6,5 +6,4 @@
 	5. automake --add-missing
 	6. ./configure
 	7. make
-
 Binaries will be generated in bin directory

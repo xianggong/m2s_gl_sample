@@ -1,0 +1,3 @@
+SUBDIRS = \
+	sample_0 \
+	sample_1
