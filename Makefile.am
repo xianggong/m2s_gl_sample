@@ -1,4 +1,8 @@
+if HAVE_M32_FLAG
+
 ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = \
 	src
+
+endif
