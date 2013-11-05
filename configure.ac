@@ -14,11 +14,6 @@ AC_PROG_LIBTOOL
 ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 ##################
-# Always static link 
-##################
-LDFLAGS+="-static"
-
-##################
 # Test flag '-m32'
 ##################
 
@@ -161,8 +156,8 @@ libraries:
 fi
 
 # Define macro for Automake and gcc
-AM_CONDITIONAL(HAVE_OPENGL, test x$have_opengl == xyes)
-if test x$have_opengl = xyes
+AM_CONDITIONAL(HAVE_OPENGL, test x$have_opengl = xyes)
+if test x$have_opengl == xyes
 then
 	AC_DEFINE(HAVE_OPENGL, [1])
 fi
@@ -203,13 +198,11 @@ AC_LINK_IFELSE(
 				#include <GL/glut.h>
 				#include <GL/gl.h>
 				#include <GL/glu.h>
-				#include <GL/glew.h>
 			]],
 			[[
 				glutInit(NULL, NULL);
 				glBegin(0);
 				gluOrtho2D(0.0, 0.0, 0.0, 0.0);
-				glewInit();
 			]]
 		)
 	],
@@ -228,7 +221,7 @@ CFLAGS="$saved_cflags"
 LD_FLAGS="$saved_ldflags"
 
 # Message if not present
-if test "x$have_m2s_opengl" = "xno"
+if test "x$have_m2s_opengl" == "xno"
 then
 	AC_MSG_WARN([
 
@@ -251,12 +244,12 @@ if test x$have_m2s_opengl = xyes
 then
 	AC_DEFINE(HAVE_M2S_OPENGL, [1])
 	M2S_RUNTIME_CFLAGS="-I$M2S_ROOT/runtime/include/GL"
-	M2S_RUNTIME_LDADD="-L$M2S_ROOT//lib/.libs"
-	M2S_RUNTIME_LDFLAGS="-lm2s-glut -lm2s-glew -lm2s-glu -lm2s-opengl"
+	M2S_RUNTIME_LDFLAGS="-L$M2S_ROOT/lib/.libs"
+	M2S_RUNTIME_LDADD="-static -lm2s-glut -lm2s-glew -lm2s-glu -lm2s-opengl"
 
 	AC_SUBST([M2S_RUNTIME_CFLAGS])
-	AC_SUBST([M2S_RUNTIME_LDADD])
 	AC_SUBST([M2S_RUNTIME_LDFLAGS])
+	AC_SUBST([M2S_RUNTIME_LDADD])
 fi
 
 ###########
